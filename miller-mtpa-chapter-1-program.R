@@ -16,13 +16,11 @@ anscombe <- data.frame(
     y4 = c(6.58, 5.76,  7.71, 8.84, 8.47, 7.04, 5.25, 12.5, 5.56, 7.91, 6.89))
 
 
+# Run the benchmarking test (which will fit OLS regression models and plot the Anscombe Quartet) 100 times
 
+runtimes_vector <- c()
 
-# Define the function for the benchmarking test that will fit OLS regression models and plot the Anscombe Quartet
-
-runtimes_list <- list()
-
-benchmark_function <- function() {
+for (x in 1:100) {
   
   start_time <- Sys.time()
 
@@ -53,19 +51,12 @@ benchmark_function <- function() {
   
   end_time <- Sys.time()
   
-  trial_run_time = end_time - start_time
+  trial_run_time <- end_time - start_time
+
+  runtimes_vector <- c(runtimes_vector, as.numeric(trial_run_time))
   
-  append(runtimes_list, trial_run_time)
   
 }
-
-
-# Run the Benchmarking Test function 100 times and compile the runtimes 
-
-for (x in 1:100) {
-  benchmark_function()
-}
-
 
 
 
@@ -78,21 +69,26 @@ for (x in 1:100) {
 
 # Let's take a look at the runtimes for each of the experimental trials.
 
-print(runtimes_list)
+print(runtimes_vector)
+
 
 # Let's print summary statistics for the trial runtimes gathered
 
-summary(runtimes_list)
+summary(runtimes_vector)
 
 # Let's create a boxplot and histogram to visualize these experimental trial runtime distributions.
 
-boxplot(runtimes_list)
+boxplot(runtimes_vector,
+        ylab = "Seconds", 
+        main = "Boxplot of Runtimes for Benchmarking Experiment Trials in Python")
 
 
-hist(runtimes_list)
+hist(runtimes_vector, 
+     xlab = "Seconds", 
+     main = "Histogram of Runtimes for Benchmarking Experiment Trials in Python")
 
 
-
-
-
-
+# We see that the distribution of benchmark test runtimes in R ranged from 0.037 to 0.070 seconds
+# and had a median of 0.043 seconds. 
+# We see that there was some right skew to this runtimes distribution - leading the mean of 0.046 seconds
+# to be slightly greater than the median.
