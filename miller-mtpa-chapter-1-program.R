@@ -19,54 +19,54 @@ anscombe <- data.frame(
 
 
 # Define the function for the benchmarking test that will fit OLS regression models and plot the Anscombe Quartet
-start_time <- Sys.time()
+
+runtimes_list <- list()
+
+benchmark_function <- function() {
+  
+  start_time <- Sys.time()
 
 # show results from four regression analyses
-with(anscombe, print(summary(lm(y1 ~ x1, data = anscombe))))
-with(anscombe, print(summary(lm(y2 ~ x2, data = anscombe))))
-with(anscombe, print(summary(lm(y3 ~ x3, data = anscombe))))
-with(anscombe, print(summary(lm(y4 ~ x4, data = anscombe))))
+  with(anscombe, print(summary(lm(y1 ~ x1, data = anscombe))))
+  with(anscombe, print(summary(lm(y2 ~ x2, data = anscombe))))
+  with(anscombe, print(summary(lm(y3 ~ x3, data = anscombe))))
+  with(anscombe, print(summary(lm(y4 ~ x4, data = anscombe))))
 
 # place four plots on one page using standard R graphics
 # ensuring that all have the same scales
 # for horizontal and vertical axes
 
 
-
-
-#pdf(file = "fig_anscombe_R.pdf", width = 8.5, height = 8.5)
-
-par(mfrow=c(2,2), mar=c(5.1, 4.1, 4.1, 2.1))
-with(anscombe, plot(x1, y1, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-    col = "darkblue", cex = 1.5, las = 1, xlab = "x1", ylab = "y1"))  
-title("Set I")
-with(anscombe,plot(x2, y2, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-    col = "darkblue", cex = 1.5, las = 1, xlab = "x2", ylab = "y2"))
-title("Set II")
-with(anscombe,plot(x3, y3, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-    col = "darkblue", cex = 1.5, las = 1, xlab = "x3", ylab = "y3"))
-title("Set III")
-with(anscombe,plot(x4, y4, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-    col = "darkblue", cex = 1.5, las = 1, xlab = "x4", ylab = "y4"))
-title("Set IV")
-end_time <- Sys.time()
-
-trial_run_time = end_time - start_time
-
-
+  par(mfrow=c(2,2), mar=c(5.1, 4.1, 4.1, 2.1))
+  with(anscombe, plot(x1, y1, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+      col = "darkblue", cex = 1.5, las = 1, xlab = "x1", ylab = "y1"))  
+  title("Set I")
+  with(anscombe,plot(x2, y2, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+      col = "darkblue", cex = 1.5, las = 1, xlab = "x2", ylab = "y2"))
+  title("Set II")
+  with(anscombe,plot(x3, y3, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+      col = "darkblue", cex = 1.5, las = 1, xlab = "x3", ylab = "y3"))
+  title("Set III")
+  with(anscombe,plot(x4, y4, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+      col = "darkblue", cex = 1.5, las = 1, xlab = "x4", ylab = "y4"))
+  title("Set IV")
+  
+  end_time <- Sys.time()
+  
+  trial_run_time = end_time - start_time
+  
+  append(runtimes_list, trial_run_time)
+  
+}
 
 
 # Run the Benchmarking Test function 100 times and compile the runtimes 
 
+for (x in 1:100) {
+  benchmark_function()
+}
 
 
-
-
-
-
-
-#dev.off()
-# par(mfrow=c(1,1),mar=c(5.1, 4.1, 4.1, 2.1))  # return to plotting defaults
 
 
 # We see that Python was able to successfully generate OLS regressions and scatterplots for 
@@ -78,23 +78,18 @@ trial_run_time = end_time - start_time
 
 # Let's take a look at the runtimes for each of the experimental trials.
 
-
-
-
-
+print(runtimes_list)
 
 # Let's print summary statistics for the trial runtimes gathered
 
-
-
-
-
-
+summary(runtimes_list)
 
 # Let's create a boxplot and histogram to visualize these experimental trial runtime distributions.
 
+boxplot(runtimes_list)
 
 
+hist(runtimes_list)
 
 
 
