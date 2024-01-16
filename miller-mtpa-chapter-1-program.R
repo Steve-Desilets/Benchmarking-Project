@@ -15,6 +15,12 @@ anscombe <- data.frame(
     y3 = c(7.46, 6.77, 12.74, 7.11, 7.81, 8.84, 6.08, 5.39, 8.15, 6.42, 5.73),
     y4 = c(6.58, 5.76,  7.71, 8.84, 8.47, 7.04, 5.25, 12.5, 5.56, 7.91, 6.89))
 
+
+
+
+# Define the function for the benchmarking test that will fit OLS regression models and plot the Anscombe Quartet
+start_time <- Sys.time()
+
 # show results from four regression analyses
 with(anscombe, print(summary(lm(y1 ~ x1, data = anscombe))))
 with(anscombe, print(summary(lm(y2 ~ x2, data = anscombe))))
@@ -30,7 +36,6 @@ with(anscombe, print(summary(lm(y4 ~ x4, data = anscombe))))
 
 #pdf(file = "fig_anscombe_R.pdf", width = 8.5, height = 8.5)
 
-
 par(mfrow=c(2,2), mar=c(5.1, 4.1, 4.1, 2.1))
 with(anscombe, plot(x1, y1, xlim=c(2,20), ylim=c(2,14), pch = 19, 
     col = "darkblue", cex = 1.5, las = 1, xlab = "x1", ylab = "y1"))  
@@ -44,18 +49,55 @@ title("Set III")
 with(anscombe,plot(x4, y4, xlim=c(2,20), ylim=c(2,14), pch = 19, 
     col = "darkblue", cex = 1.5, las = 1, xlab = "x4", ylab = "y4"))
 title("Set IV")
+end_time <- Sys.time()
+
+trial_run_time = end_time - start_time
+
+
+
+
+# Run the Benchmarking Test function 100 times and compile the runtimes 
+
+
+
+
+
 
 
 
 #dev.off()
-
-
-
-
-
 # par(mfrow=c(1,1),mar=c(5.1, 4.1, 4.1, 2.1))  # return to plotting defaults
 
-# Suggestions for the student:
-# See if you can develop a quartet of your own, 
-# or perhaps just a duet, two very different data sets 
-# with the same fitted model.
+
+# We see that Python was able to successfully generate OLS regressions and scatterplots for 
+# our Anscombe Quartet data.
+
+# As expected, we see that the OLS regression lines for each of the four datasets 
+# is the same: y = 3 + 0.5x, and we see that each of the quartet datasets has a 
+# R-squared equal to 0.67 and an adjusted R-squared equal to 0.63.
+
+# Let's take a look at the runtimes for each of the experimental trials.
+
+
+
+
+
+
+# Let's print summary statistics for the trial runtimes gathered
+
+
+
+
+
+
+
+# Let's create a boxplot and histogram to visualize these experimental trial runtime distributions.
+
+
+
+
+
+
+
+
+
