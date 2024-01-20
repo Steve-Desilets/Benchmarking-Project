@@ -4,4 +4,4 @@ We see that Go, Python, and R were able to successfully generate OLS regressions
 
 We see that the benchmarking experiment trial runtimes ranged from 23,520 to 87,650 microseconds, with a median runtime of 26,360 microseconds.  The runtime distribution also exhibited somewhat of a right skew, causing the mean runtime of 26,846 microseconds to be a bit greater than the median runtime.
 
-For the R benchmarking experiments, we see that the distribution of trial runtimes ranged from 0.037 to 0.070 seconds and had a mean of 0.043 seconds.  We also see that there was some righ skew to the runtimes distribution - leading the mean of 0.046 seconds to be slightly greater than the median.
+For the R benchmarking experiments, we see that the distribution of trial runtimes ranged from 10,390 to 201,910 microseconds and had a median of 14,350 microseconds.  We also see that there was right skew to the runtimes distribution - leading the mean of 30,220 microseconds to be greater than the median.
