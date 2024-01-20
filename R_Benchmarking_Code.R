@@ -16,6 +16,28 @@ anscombe <- data.frame(
     y4 = c(6.58, 5.76,  7.71, 8.84, 8.47, 7.04, 5.25, 12.5, 5.56, 7.91, 6.89))
 
 
+# place four plots on one page using standard R graphics
+# ensuring that all have the same scales
+# for horizontal and vertical axes
+
+
+par(mfrow=c(2,2), mar=c(5.1, 4.1, 4.1, 2.1))
+with(anscombe, plot(x1, y1, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+                    col = "darkblue", cex = 1.5, las = 1, xlab = "x1", ylab = "y1"))  
+title("Set I")
+with(anscombe,plot(x2, y2, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+                   col = "darkblue", cex = 1.5, las = 1, xlab = "x2", ylab = "y2"))
+title("Set II")
+with(anscombe,plot(x3, y3, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+                   col = "darkblue", cex = 1.5, las = 1, xlab = "x3", ylab = "y3"))
+title("Set III")
+with(anscombe,plot(x4, y4, xlim=c(2,20), ylim=c(2,14), pch = 19, 
+                   col = "darkblue", cex = 1.5, las = 1, xlab = "x4", ylab = "y4"))
+title("Set IV")
+
+
+
+
 # Run the benchmarking test (which will fit OLS regression models and plot the Anscombe Quartet) 100 times
 
 runtimes_vector <- c()
@@ -30,31 +52,11 @@ for (x in 1:100) {
   with(anscombe, print(summary(lm(y3 ~ x3, data = anscombe))))
   with(anscombe, print(summary(lm(y4 ~ x4, data = anscombe))))
 
-# place four plots on one page using standard R graphics
-# ensuring that all have the same scales
-# for horizontal and vertical axes
-
-
-  par(mfrow=c(2,2), mar=c(5.1, 4.1, 4.1, 2.1))
-  with(anscombe, plot(x1, y1, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-      col = "darkblue", cex = 1.5, las = 1, xlab = "x1", ylab = "y1"))  
-  title("Set I")
-  with(anscombe,plot(x2, y2, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-      col = "darkblue", cex = 1.5, las = 1, xlab = "x2", ylab = "y2"))
-  title("Set II")
-  with(anscombe,plot(x3, y3, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-      col = "darkblue", cex = 1.5, las = 1, xlab = "x3", ylab = "y3"))
-  title("Set III")
-  with(anscombe,plot(x4, y4, xlim=c(2,20), ylim=c(2,14), pch = 19, 
-      col = "darkblue", cex = 1.5, las = 1, xlab = "x4", ylab = "y4"))
-  title("Set IV")
-  
   end_time <- Sys.time()
   
   trial_run_time <- end_time - start_time
 
   runtimes_vector <- c(runtimes_vector, as.numeric(trial_run_time))
-  
   
 }
 
@@ -88,7 +90,7 @@ hist(runtimes_vector,
      main = "Histogram of Runtimes for Benchmarking Experiment Trials in Python")
 
 
-# We see that the distribution of benchmark test runtimes in R ranged from 0.037 to 0.070 seconds
-# and had a median of 0.043 seconds. 
-# We see that there was some right skew to this runtimes distribution - leading the mean of 0.046 seconds
+# We see that the distribution of benchmark test runtimes in R ranged from 10,390 microseconds to 201,910 microseconds
+# and had a median of 14,350 microseconds. 
+# We see that there was some right skew to this runtimes distribution - leading the mean of 30,220 microseconds
 # to be slightly greater than the median.
